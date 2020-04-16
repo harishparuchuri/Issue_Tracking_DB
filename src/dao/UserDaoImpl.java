@@ -99,7 +99,7 @@ public class UserDaoImpl implements UserDaoInterface {
 		ResultSet rs = preparedStatement.executeQuery();
 		rs.next();
 		loginid = rs.getInt("userid") ;
-		System.out.println("testing user id is geting or not "+loginid);
+		
 		rs.close();
 		}
 		
