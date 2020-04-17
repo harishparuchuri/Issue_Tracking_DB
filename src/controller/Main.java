@@ -3,7 +3,9 @@ package controller;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.Date;
 
 import dao.IssueOperation;
@@ -23,6 +25,13 @@ public class Main {
 	public static void main(String[] args) throws Exception {
 		// TODO Auto-generated method stub
 		//Objects
+		
+		DateFormat df = new SimpleDateFormat("dd-MM-yy");
+	       Date dateobj = new Date();
+	       System.out.println("date "+df.format(dateobj));
+		
+		
+		
 		
 		User user=new User();
 		UserDaoImpl userdao=new UserDaoImpl();
@@ -229,13 +238,21 @@ public class Main {
 
 
 								case 1:
-									issuetask. updateissue(Empid,"high");
-									System.out.println("\n\n\n update checking");
+									issuetask.updateissue(Empid,"high");
+									
 									
 									break;
 								case 2:
 									issuetask. updateissue(Empid,"all");
 									break;
+								case 3:
+									
+									String date1 = new SimpleDateFormat("dd-MM-yyyy").format(new Date());
+									issuetask.setResolvedOn(date1);
+									issuetask.resolveissue(Empid,date);
+									
+									
+									
 								
 								default:break;
 								}
@@ -410,9 +427,10 @@ public class Main {
 	}
 	static void fixissue()
 	{
-		System.out.println("Select Which type of Issues Do You Want Fix");
+		System.out.println("Select Which type of Issues Do You Want Fix OR RESOLVE ");
 		System.out.println("1. HIGH PRIORITY");
 		System.out.println("2. ALL TYPE OF ISSUES");
+		System.out.println("3. ISSUE TO COMPLETE");
 		System.out.println("0. BACK TO EMPLOYEE MENU");
 	}
 
