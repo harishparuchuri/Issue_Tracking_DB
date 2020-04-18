@@ -10,16 +10,16 @@ import model.User;
 import utility.ConnectionManager;
 
 public class UserDaoImpl implements UserDaoInterface {
-	
+
 	String returnuser;
 	String returnpass;
-	
+
 	public int signUp(User user) throws Exception {
 		String INSERT_USERS_SQL = "INSERT INTO COLLEGE_USER(CU_ID,CU_NAME,P_NUMBER,CU_PASSWORD)VALUES(?,?,?,?)";
-		
+
 		String count="select count(*) AS rowcount from COLLEGE_USER";
 		int result = 0;
-		
+
 		try
 		{
 			Connection connection = null;
@@ -38,8 +38,8 @@ public class UserDaoImpl implements UserDaoInterface {
 			preparedStatement.setString(2,user.getUname());
 			preparedStatement.setString(3,user.getUnumber());
 			preparedStatement.setString(4,user.getUpassword());
-			
-			
+
+
 			System.out.println("User "+user.getUname()+" Added sucessfully\n\n");
 
 			result = preparedStatement.executeUpdate();
@@ -59,19 +59,19 @@ public class UserDaoImpl implements UserDaoInterface {
 
 				e.printStackTrace();
 			}
-			
-					PreparedStatement preparedStatement = connection.prepareStatement("select * from COLLEGE_USER where CU_NAME = ? and CU_PASSWORD = ? ");
 
-					returnuser=user.getUname();
-					returnpass=	user.getUpassword();	
+			PreparedStatement preparedStatement = connection.prepareStatement("select * from COLLEGE_USER where CU_NAME = ? and CU_PASSWORD = ? ");
+
+			returnuser=user.getUname();
+			returnpass=	user.getUpassword();	
 			preparedStatement.setString(1,user.getUname());
 			preparedStatement.setString(2, user.getUpassword());
 
 			//System.out.println(preparedStatement);
 			ResultSet rs = preparedStatement.executeQuery();
 			status = rs.next();
-			
-			
+
+
 
 		} catch (SQLException e) {
 
@@ -81,8 +81,8 @@ public class UserDaoImpl implements UserDaoInterface {
 	}
 	int loginid;
 	public int returnid(){
-		
-		
+
+
 
 		try{
 			Connection connection = null;
@@ -93,23 +93,23 @@ public class UserDaoImpl implements UserDaoInterface {
 				e.printStackTrace();
 			}
 			PreparedStatement preparedStatement = connection.prepareStatement("select CU_ID as userid from COLLEGE_USER  where CU_NAME = ? and CU_PASSWORD = ?");
-		
-		preparedStatement.setString(1,returnuser);
-		preparedStatement.setString(2,returnpass);
-		ResultSet rs = preparedStatement.executeQuery();
-		rs.next();
-		loginid = rs.getInt("userid") ;
-		
-		rs.close();
+
+			preparedStatement.setString(1,returnuser);
+			preparedStatement.setString(2,returnpass);
+			ResultSet rs = preparedStatement.executeQuery();
+			rs.next();
+			loginid = rs.getInt("userid") ;
+
+			rs.close();
 		}
-		
+
 		catch (SQLException e) {
 
 			System.out.println(e);
 		}
-		
+
 		return loginid;
 	}
-	
+
 
 }

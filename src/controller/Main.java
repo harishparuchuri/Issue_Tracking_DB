@@ -23,16 +23,8 @@ public class Main {
 
 
 	public static void main(String[] args) throws Exception {
-		// TODO Auto-generated method stub
+
 		//Objects
-		
-		DateFormat df = new SimpleDateFormat("dd-MM-yy");
-	       Date dateobj = new Date();
-	       System.out.println("date "+df.format(dateobj));
-		
-		
-		
-		
 		User user=new User();
 		UserDaoImpl userdao=new UserDaoImpl();
 		Employee employee=new Employee();
@@ -60,7 +52,7 @@ public class Main {
 		Boolean uflag=false;
 
 		do {
-			mainmenu();
+			mainmenu();//Main Menu
 
 			select=Integer.parseInt(br.readLine()); 
 			switch(select)
@@ -70,7 +62,7 @@ public class Main {
 					if(flag!=true)
 					{
 						if(admin.AdminLogin()==true)//Admin Login
-						//if(true)//disable login
+							//if(true)//disable login
 						{
 							flag=true;
 							System.out.println("Login successfully\n\n");
@@ -150,7 +142,7 @@ public class Main {
 							break;
 						case 4:
 							//Check issues
-							
+
 							do{
 								issuetype();
 								select1=Integer.parseInt(br.readLine());
@@ -163,7 +155,7 @@ public class Main {
 								case 2:
 									issuetask. viewissues("working");
 									break;
-								case 3:issuetask. viewissues("completed");
+								case 3:issuetask. viewissues("COMPLETED");
 								break;
 								case 4:issuetask. viewissues("all");	
 								break;
@@ -188,7 +180,7 @@ public class Main {
 				while (select !=0);
 				break;
 			case 2:
-				
+				//Employee Login
 				System.out.println("Enter the user name");
 				String name=br.readLine();
 
@@ -196,19 +188,19 @@ public class Main {
 				String pass=br.readLine();
 				employee.setEname(name);
 				employee.setEpassword(pass);
-				
+
 
 				do {
 					if(eflag!=true)
 					{
-						
+
 						if(employeedao.loginEmployee(employee)==true)
-						//if(true)//disable login
+							//if(true)//disable login
 						{
 							eflag=true;
 							Empid=employeedao.returnid();
 							System.out.println("Login successfully with "+Empid+"\n\n");
-							
+
 						}
 						else
 						{
@@ -219,51 +211,20 @@ public class Main {
 					}	
 					if(eflag==true)
 					{
-
+						//Employee menu
 						employeemenu();
 						select=Integer.parseInt(br.readLine()); 
 						switch(select)
 						{
 						case 1:
-							System.out.println("view issue");
+							//view issue status and work on issue
 							String eid=Integer.toString(Empid);
 							issuetask. viewissues(eid);	
 							break;
 						case 2:
-							System.out.println("fix issue");
-							do{
-								fixissue();
-								select1=Integer.parseInt(br.readLine());
-								switch(select1) {
-
-
-								case 1:
-									issuetask.updateissue(Empid,"high");
-									
-									
-									break;
-								case 2:
-									issuetask. updateissue(Empid,"all");
-									break;
-								case 3:
-									
-									String date1 = new SimpleDateFormat("dd-MM-yyyy").format(new Date());
-									issuetask.setResolvedOn(date1);
-									issuetask.resolveissue(Empid,date);
-									
-									
-									
-								
-								default:break;
-								}
-
-								
-							}
-							while(select1!=0);
-
-
-							break;	
-							
+							//resolve issue and send sms
+							issuetask.resolveissue(Empid);
+							break;
 						case 0:System.out.println("Back to main menu");
 						eflag=false;
 						break;
@@ -280,7 +241,7 @@ public class Main {
 
 
 			case 3:
-				
+				//User Login
 				System.out.println("Enter the user name");
 				String ename=br.readLine();
 				System.out.println("Enter password");
@@ -288,19 +249,19 @@ public class Main {
 				user.setUname(ename);
 				user.setUpassword(epass);
 
- 					
+
 				do {
 					if(uflag!=true)
-					
+
 					{
 						if(userdao.loginUser(user)==true)//user login
-						//if(true) //disable login
+							//if(true) //disable login
 						{
 							uflag=true;
 							System.out.println("Login successfully\n\n");
 							userid=userdao.returnid();
-							
-							
+
+
 						}
 						else
 						{
@@ -311,14 +272,14 @@ public class Main {
 					}	
 					if(uflag==true)
 					{
-
+						//User Menu
 						usermenu();
 						select=Integer.parseInt(br.readLine()); 
 						switch(select)
 						{
-						case 1:
+						case 1://Adding issue
 							int id=userdao.returnid();
-							System.out.println("Add issue for user "+id);
+
 
 							System.out.println("ENTER ISSUE_SUMMARY");
 							String summary=br.readLine();
@@ -341,12 +302,12 @@ public class Main {
 							issue.setPriority(priority);
 							issue.setIdentified_by_cid(userdao.returnid());
 							issuedao.Addissue(issue);
-							
+
 
 							break;
-						case 2:
-							System.out.println("Check Issue");
-							System.out.println(userid);
+						case 2://check status of the issue
+
+
 							issuedao.viewstatus(userid);
 							break;
 						case 0:System.out.println("Back to main menu");
@@ -401,7 +362,8 @@ public class Main {
 	static void employeemenu()
 	{
 		System.out.println("1. View Issues");
-		System.out.println("2. Fix Issue");
+		System.out.println("2. RESOLVE ISSUE");
+
 		System.out.println("0.LOGOUT AND  BACK TO MAIN MENU");
 		System.out.println("------------------------------------------------------------------------------------------------------------");
 		System.out.println("Select any option");
@@ -425,14 +387,7 @@ public class Main {
 		System.out.println("4. All Issues");
 		System.out.println("0. BACK TO Admin MENU");
 	}
-	static void fixissue()
-	{
-		System.out.println("Select Which type of Issues Do You Want Fix OR RESOLVE ");
-		System.out.println("1. HIGH PRIORITY");
-		System.out.println("2. ALL TYPE OF ISSUES");
-		System.out.println("3. ISSUE TO COMPLETE");
-		System.out.println("0. BACK TO EMPLOYEE MENU");
-	}
+
 
 }
 

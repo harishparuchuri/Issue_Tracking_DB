@@ -11,7 +11,7 @@ public class DepartmentDaoImpl implements DepartmentDaoInterface {
 
 	@Override
 	public int AddDepartment(Department department) throws Exception {
-		
+
 		String INSERT_DEPARTMENT_QUERY="INSERT INTO COLLEGE_DEPARTMENT(CD_ID,CD_NAME,CD_NUMBER)VALUES(?,?,?)";
 		String count="SELECT  COUNT(*) AS ROWCOUNT FROM COLLEGE_DEPARTMENT";
 		int result = 0;
@@ -26,9 +26,9 @@ public class DepartmentDaoImpl implements DepartmentDaoInterface {
 		ps.setString(2,department.getDepartment_name());
 		ps.setString(3,department.getDepartment_number());
 		result=ps.executeUpdate();
-		
-		
-		
+
+
+
 		return result;
 	}
 
