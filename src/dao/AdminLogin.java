@@ -9,8 +9,8 @@ public class AdminLogin {
 	private String Adminname = "harish";
 	private String Adminpass = "paruchuri";
 	
-	//private String Adminname = "1";
-	//private String Adminpass = "1";
+	//private String Adminname = "1";//
+	//private String Adminpass = "1";//
 
 
 	BufferedReader br=new BufferedReader(new InputStreamReader(System.in));
