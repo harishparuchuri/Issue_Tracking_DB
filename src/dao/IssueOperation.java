@@ -32,22 +32,22 @@ public class IssueOperation {
 		String query = null;
 		if(type=="pending")
 		{
-			query="select ISSUE_ID,ISSUE_SUMMARY,ISSUE_DESCRIPTION,IDENTIFIED_BY_CU_ID,RELATED_TO_CD_ID,PRIORITY,STATUS from issues where status='"+type+"'";
+			query="select ISSUE_ID,ISSUE_SUMMARY,ISSUE_DESCRIPTION,IDENTIFIED_BY_CU_ID,RELATED_TO_CD_ID,PRIORITY,STATUS from issues where status='"+type+"' ORDER BY ISSUE_ID ASC";
 		}
 		else if(type=="working")
 		{
-			query="select ISSUE_ID,ISSUE_SUMMARY,ISSUE_DESCRIPTION,IDENTIFIED_BY_CU_ID,RELATED_TO_CD_ID,PRIORITY,STATUS from issues where status='working'";
+			query="select ISSUE_ID,ISSUE_SUMMARY,ISSUE_DESCRIPTION,IDENTIFIED_BY_CU_ID,RELATED_TO_CD_ID,PRIORITY,STATUS from issues where status='working' ORDER BY ISSUE_ID ASC";
 
 		}
 		else if(type=="COMPLETED")
 		{
-			query="select ISSUE_ID,ISSUE_SUMMARY,ISSUE_DESCRIPTION,IDENTIFIED_BY_CU_ID,RELATED_TO_CD_ID,PRIORITY,STATUS from issues where status='COMPLETED'";
+			query="select ISSUE_ID,ISSUE_SUMMARY,ISSUE_DESCRIPTION,IDENTIFIED_BY_CU_ID,RELATED_TO_CD_ID,PRIORITY,STATUS from issues where status='COMPLETED' ORDER BY ISSUE_ID ASC";
 
 
 		}
 		else if(type=="all")
 		{
-			query="select ISSUE_ID,ISSUE_SUMMARY,ISSUE_DESCRIPTION,IDENTIFIED_BY_CU_ID,RELATED_TO_CD_ID,PRIORITY,STATUS from issues";
+			query="select ISSUE_ID,ISSUE_SUMMARY,ISSUE_DESCRIPTION,IDENTIFIED_BY_CU_ID,RELATED_TO_CD_ID,PRIORITY,STATUS from issues ORDER BY ISSUE_ID ASC";
 
 
 		}
@@ -63,7 +63,7 @@ public class IssueOperation {
 			rs.next();
 			depid=rs.getInt("CDU_DEPARTMENT");
 
-			query="SELECT ISSUE_ID,ISSUE_SUMMARY,ISSUE_DESCRIPTION,IDENTIFIED_BY_CU_ID,RELATED_TO_CD_ID,PRIORITY,STATUS FROM ISSUES WHERE RELATED_TO_CD_ID="+depid+" and STATUS='pending'";
+			query="SELECT ISSUE_ID,ISSUE_SUMMARY,ISSUE_DESCRIPTION,IDENTIFIED_BY_CU_ID,RELATED_TO_CD_ID,PRIORITY,STATUS FROM ISSUES WHERE RELATED_TO_CD_ID="+depid+" and STATUS='pending' ORDER BY ISSUE_ID ASC";
 		}
 
 		Connection con=ConnectionManager.getConnection();
@@ -152,7 +152,7 @@ public class IssueOperation {
 
 		rs.close();
 
-		String	Fetch_results="SELECT ISSUE_ID,ISSUE_SUMMARY,ISSUE_DESCRIPTION,IDENTIFIED_BY_CU_ID,RELATED_TO_CD_ID,PRIORITY,STATUS FROM ISSUES WHERE RELATED_TO_CD_ID="+depid+"and status='working'";
+		String	Fetch_results="SELECT ISSUE_ID,ISSUE_SUMMARY,ISSUE_DESCRIPTION,IDENTIFIED_BY_CU_ID,RELATED_TO_CD_ID,PRIORITY,STATUS FROM ISSUES WHERE RELATED_TO_CD_ID="+depid+"and status='working' ORDER BY ISSUE_ID ASC";
 
 		con=ConnectionManager.getConnection();
 		rs=con.createStatement().executeQuery(Fetch_results);
